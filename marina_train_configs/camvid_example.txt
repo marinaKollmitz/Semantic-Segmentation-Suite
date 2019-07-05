@@ -1,0 +1,14 @@
+#reproducing segmentation results reported in Semantic-Segmentation-Suite Readme for CamVid dataset and FC-DenseNet103 
+
+#for training
+python3 train.py --dataset CamVid --model FC-DenseNet103 --batch_size 1 --num_epochs 300 --crop_height 352 --crop_width 480 
+
+#for testing
+#(note that we specify the checkpoint by latest_model_modelname_dataset.ckpt even though this file is not directly present in the directory. Instead, the Tensorflow saves three files, .meta, .index and .data-00000-of-00001, and restores the checkpoint from these 3 files., see https://stackoverflow.com/questions/41265035/tensorflow-why-there-are-3-files-after-saving-the-model)
+
+python3 test.py --dataset CamVid --model FC-DenseNet103 --crop_height 352 --crop_width 480 --checkpoint checkpoints/latest_model_FC-DenseNet103_CamVid.ckpt
+
+#for inference
+
+python3 predict.py --dataset CamVid --model FC-DenseNet103 --crop_height 352 --crop_width 480 --checkpoint checkpoints/latest_model_FC-DenseNet103_CamVid.ckpt --image CamVid/test/Seq05VD_f02160.png
+
